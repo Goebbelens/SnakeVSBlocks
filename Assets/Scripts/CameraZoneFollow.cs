@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraZoneFollow : MonoBehaviour
 {
-    public Player Player;
+    public PlayerZone ViewZoneMovement;
     public float cameraZOffset = -20;
     public Quaternion cameraRotation;
 
@@ -13,16 +13,15 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        playerPosition = Player.transform.position;
+        playerPosition = ViewZoneMovement.transform.position;
         cameraPosition = new Vector3(playerPosition.x, playerPosition.y, cameraZOffset);
         transform.position = cameraPosition;
         transform.rotation = cameraRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        playerPosition = Player.transform.position;
+        playerPosition = ViewZoneMovement.transform.position;
         cameraPosition = new Vector3(playerPosition.x, playerPosition.y, cameraZOffset);
         transform.position = cameraPosition;
         transform.rotation = cameraRotation;

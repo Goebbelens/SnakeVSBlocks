@@ -6,8 +6,9 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     public Transform Player;
+    public Transform ZoneCenter;
     private Vector3 _previousMousePosition;
-    public float MovementVelocity = 0.04f;
+    public float MovementVelocity = 0.012f;
 
     void Update()
     {
@@ -15,26 +16,26 @@ public class PlayerControls : MonoBehaviour
         {
             //Vector3 playerPos = Player.position;
             Vector3 delta = Input.mousePosition - _previousMousePosition;
-            Player.position = new Vector3(Player.position.x + delta.x * MovementVelocity, 0, Player.position.z + delta.y * MovementVelocity);
+            Player.localPosition = new Vector3(Player.localPosition.x + delta.x * MovementVelocity, Player.localPosition.y + delta.y * MovementVelocity, 0);
         }
         _previousMousePosition = Input.mousePosition;
 
-        if (Player.position.z > 10.87999)
+        if (Player.localPosition.y > 10.87999)
         {
-            Player.position = new Vector3 (Player.position.x, 0, (float)10.87999);
+            Player.localPosition = new Vector3 (Player.localPosition.x, (float)10.87999, 0);
         }
-        if (Player.position.z < -10.87999)
+        if (Player.localPosition.y < -10.87999)
         {
-            Player.position = new Vector3(Player.position.x, 0, (float)-10.87999);
+            Player.localPosition = new Vector3(Player.localPosition.x, (float)-10.87999, 0);
         }
 
-        if (Player.position.x > 7.239995)
+        if (Player.localPosition.x > 5.954041)
         {
-            Player.position = new Vector3((float)7.239995, 0, Player.position.z);
+            Player.localPosition = new Vector3((float)5.954041, Player.localPosition.y, 0);
         }
-        if (Player.position.x < -7.239995)
+        if (Player.localPosition.x < -5.954041)
         {
-            Player.position = new Vector3((float)-7.239995, 0, Player.position.z);
+            Player.localPosition = new Vector3((float)-5.954041, Player.localPosition.y, 0);
         }
     }
 }
