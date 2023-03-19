@@ -24,7 +24,7 @@ public class PlayerZone : MonoBehaviour
     {
         _rigidbody.velocity = new Vector3(0, ZoneMovementSpeed, 0);
         _rigidbody.AddForce(new Vector3(0, ZoneMovementSpeed, 0), ForceMode.VelocityChange);
-        Debug.Log("Текущая скорость - " + (transform.position.y - _prevPosSpeed.y));
-        _prevPosSpeed = transform.position;
+        //Debug.Log("Текущая скорость - " + (transform.position.y - _prevPosSpeed.y));
+        //_prevPosSpeed = transform.position;
     }
 }

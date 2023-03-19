@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     public Transform Player;
-    public Transform ZoneCenter;
     private Vector3 _previousMousePosition;
     public float MovementVelocity = 0.012f;
 
@@ -26,6 +25,23 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 delta = Input.mousePosition - _previousMousePosition;
+            Player.position = new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0);
+        }
+        _previousMousePosition = Input.mousePosition;
+
+        if (Player.position.x > 5.954041)
+        {
+            Player.position = new Vector3((float)5.954041, Player.position.y, 0);
+        }
+        if (Player.position.x < -5.954041)
+        {
+            Player.position = new Vector3((float)-5.954041, Player.position.y, 0);
+        }
+        /*Rigidbody.velocity = YSphereVelocity;
+        Rigidbody.AddForce(YSphereVelocity, ForceMode.VelocityChange);
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 delta = Input.mousePosition - _previousMousePosition;
             Player.localPosition = new Vector3(Player.localPosition.x + delta.x * MovementVelocity, 0, 0);
         }
         _previousMousePosition = Input.mousePosition;
@@ -37,6 +53,6 @@ public class PlayerControls : MonoBehaviour
         if (Player.localPosition.x < -5.954041)
         {
             Player.localPosition = new Vector3((float)-5.954041, Player.localPosition.y, 0);
-        }
+        }*/
     }
 }
