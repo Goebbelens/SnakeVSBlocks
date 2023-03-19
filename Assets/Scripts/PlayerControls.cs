@@ -26,6 +26,7 @@ public class PlayerControls : MonoBehaviour
         {
             Vector3 delta = Input.mousePosition - _previousMousePosition;
             Player.position = new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0);
+            //Rigidbody.MovePosition(new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0));
         }
         _previousMousePosition = Input.mousePosition;
 
