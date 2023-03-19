@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Player Player;
+    public Transform Player;
+    public float cameraYOffset = 20;
     public float cameraZOffset = -20;
     public Quaternion cameraRotation;
 
@@ -14,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         playerPosition = Player.transform.position;
-        cameraPosition = new Vector3(playerPosition.x, playerPosition.y, cameraZOffset);
+        cameraPosition = new Vector3(0, playerPosition.y - cameraYOffset, cameraZOffset);
         transform.position = cameraPosition;
         transform.rotation = cameraRotation;
     }
@@ -23,7 +24,7 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         playerPosition = Player.transform.position;
-        cameraPosition = new Vector3(playerPosition.x, playerPosition.y, cameraZOffset);
+        cameraPosition = new Vector3(0, playerPosition.y - cameraYOffset, cameraZOffset);
         transform.position = cameraPosition;
         transform.rotation = cameraRotation;
     }
