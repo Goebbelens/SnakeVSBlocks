@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour
+public class AddForceConrols : MonoBehaviour
 {
     public Transform Player;
     private Vector3 _previousMousePosition;
@@ -21,18 +20,22 @@ public class PlayerControls : MonoBehaviour
     // Changed from Update to FixedUpdate
     private void FixedUpdate()
     {
-        if(Player.position.y < _previousYPlayerPos)
+        if (Player.position.y < _previousYPlayerPos)
         {
             Player.position = new Vector3(Player.position.x, _previousYPlayerPos, 0);
         }
         Rigidbody.velocity = YSphereVelocity;
         Rigidbody.AddForce(YSphereVelocity, ForceMode.VelocityChange);
+
         if (Input.GetMouseButton(0))
         {
             Vector3 delta = Input.mousePosition - _previousMousePosition;
-            Player.position = new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0);
-            //Rigidbody.MovePosition(new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0));
+            Debug.Log(Input.mousePosition);
+            Rigidbody.AddForce(new Vector3(delta.x / MovementVelocity, 0, 0), ForceMode.VelocityChange);
+            //Player.position = new Vector3(Player.position.x + delta.x * MovementVelocity, Player.position.y, 0);
+            //Rigidbody.MovePosition(new Vector3(Player.position.x + delta.x * MovementVelocity, 0, 0));
         }
+
         _previousMousePosition = Input.mousePosition;
 
         if (Player.position.x > 5.954041)
@@ -43,23 +46,6 @@ public class PlayerControls : MonoBehaviour
         {
             Player.position = new Vector3((float)-5.954041, Player.position.y, 0);
         }
-        /*Rigidbody.velocity = YSphereVelocity;
-        Rigidbody.AddForce(YSphereVelocity, ForceMode.VelocityChange);
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 delta = Input.mousePosition - _previousMousePosition;
-            Player.localPosition = new Vector3(Player.localPosition.x + delta.x * MovementVelocity, 0, 0);
-        }
-        _previousMousePosition = Input.mousePosition;
-
-        if (Player.localPosition.x > 5.954041)
-        {
-            Player.localPosition = new Vector3((float)5.954041, Player.localPosition.y, 0);
-        }
-        if (Player.localPosition.x < -5.954041)
-        {
-            Player.localPosition = new Vector3((float)-5.954041, Player.localPosition.y, 0);
-        }*/
         _previousYPlayerPos = Player.position.y;
     }
 }
