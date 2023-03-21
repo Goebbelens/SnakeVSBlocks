@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SnakeTail : MonoBehaviour
 {
-    public Transform TailExample;
+    public Transform SnakeHead;
     public float CircleDiameter;
 
     private List<Transform> snakeCircles = new List<Transform>();
@@ -12,18 +12,16 @@ public class SnakeTail : MonoBehaviour
     
     void Start()
     {
-        positions.Add(TailExample.position);
-        AddCircle();
-        AddCircle();
+        positions.Add(SnakeHead.position);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Ќаправление от старого положени€ головы к новому
-        Vector3 direction = ((Vector3)TailExample.position - positions[0]).normalized;
+        Vector3 direction = ((Vector3)SnakeHead.position - positions[0]).normalized;
 
-        float distance = ((Vector3)TailExample.position - positions[0]).magnitude;
+        float distance = ((Vector3)SnakeHead.position - positions[0]).magnitude;
         
         if (distance > CircleDiameter)
         {
@@ -35,14 +33,28 @@ public class SnakeTail : MonoBehaviour
 
         for (int i = 0; i < snakeCircles.Count; i++)
         {
-            snakeCircles[i].position = Vector2.Lerp(positions[i + 1], positions[i], distance / CircleDiameter);
+            snakeCircles[i].position = Vector3.Lerp(positions[i + 1], positions[i], distance / CircleDiameter);
         }
     }
 
     public void AddCircle()
     {
-        Transform circle = Instantiate(TailExample, positions[positions.Count - 1], Quaternion.identity, transform);
+        Transform circle = Instantiate(SnakeHead, positions[positions.Count - 1], Quaternion.identity, transform);
         snakeCircles.Add(circle);
         positions.Add(circle.position);
+    }
+
+    public void RemoveCircle()
+    {
+        if (snakeCircles.Count == 0)
+        {
+            Destroy(SnakeHead.gameObject);
+            enabled = false;
+            return;
+        }
+        Destroy(snakeCircles[0].gameObject);
+        snakeCircles.RemoveAt(0);
+        positions.RemoveAt(1);
+        
     }
 }

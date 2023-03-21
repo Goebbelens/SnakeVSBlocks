@@ -17,12 +17,6 @@ public class Food : MonoBehaviour
         TextMesh.text = Cuisine.ToString();
     }
 
-    
-    void Update()
-    {
-        TextMesh.text = Cuisine.ToString();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Player.Eat(Cuisine, gameObject);
