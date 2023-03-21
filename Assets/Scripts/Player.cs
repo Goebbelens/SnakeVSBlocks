@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(FoodAmount);
+        //Debug.Log(FoodAmount);
         if (FoodAmount == 0)
         {
             Die();
