@@ -20,7 +20,23 @@ public class SnakeTail : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ќаправление от старого положени€ головы к новому
+        Vector3 direction = ((Vector3)TailExample.position - positions[0]).normalized;
+
         float distance = ((Vector3)TailExample.position - positions[0]).magnitude;
+        
+        if (distance > CircleDiameter)
+        {
+            positions.Insert(0, positions[0] + direction * CircleDiameter);
+            positions.RemoveAt(positions.Count - 1);
+
+            distance -= CircleDiameter;
+        }
+
+        for (int i = 0; i < snakeCircles.Count; i++)
+        {
+            snakeCircles[i].position = Vector2.Lerp(positions[i + 1], positions[i], distance / CircleDiameter);
+        }
     }
 
     public void AddCircle()

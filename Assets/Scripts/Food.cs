@@ -9,6 +9,7 @@ public class Food : MonoBehaviour
     private int Cuisine;
     public TextMeshProUGUI TextMesh;
     public GameObject TextObject;
+    public Player Player;
     void Start()
     {
         TextMesh = TextObject.GetComponent<TextMeshProUGUI>();
@@ -24,9 +25,6 @@ public class Food : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out Player Player))
-        {
-            Player.Eat(Cuisine, gameObject);
-        }
+        Player.Eat(Cuisine, gameObject);
     }
 }
