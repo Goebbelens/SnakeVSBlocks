@@ -6,14 +6,22 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     private int ObstacleHealth;
+    private Renderer renderer;
     public GameObject TextObjectObstacle;
     private TextMeshProUGUI textObstacle;
 
     void Start()
     {
+        renderer = GetComponent<Renderer>();
+        renderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 10.0f);
         textObstacle = TextObjectObstacle.GetComponent<TextMeshProUGUI>();
         ObstacleHealth = Random.Range(1, 15);
         textObstacle.text = ObstacleHealth.ToString();
+    }
+
+    private void Update()
+    {
+        renderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 10.0f);
     }
 
     private void OnCollisionEnter(Collision collision)

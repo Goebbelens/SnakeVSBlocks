@@ -7,9 +7,11 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     private int Cuisine;
+
     public TextMeshProUGUI TextMesh;
     public GameObject TextObject;
     public Player Player;
+
     void Start()
     {
         TextMesh = TextObject.GetComponent<TextMeshProUGUI>();
