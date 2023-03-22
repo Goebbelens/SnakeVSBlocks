@@ -27,7 +27,6 @@ public class CameraFollow : MonoBehaviour
     {
         playerPosition = Player.transform.position;
         cameraPosition = new Vector3(0, playerPosition.y - cameraYOffset, cameraZOffset);
-        Debug.Log("Player pos Y = " + playerPosition.y + " and Camera Pos Y = " + cameraPosition.y);
         transform.position = cameraPosition;
         if (_previousCameraPosition > transform.position.y)
         {

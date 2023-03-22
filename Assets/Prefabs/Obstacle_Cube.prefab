@@ -348,3 +348,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextObjectObstacle: {fileID: 2448202364385648546}
+  minObstacleHP: 1
+  maxObstacleHP: 15
