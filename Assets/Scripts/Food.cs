@@ -7,20 +7,23 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     private int Cuisine;
-
+    public int minFood;
+    public int maxFood;
+    public Game Game;
     public TextMeshProUGUI TextMesh;
-    public GameObject TextObject;
-    public Player Player;
 
     void Start()
     {
-        TextMesh = TextObject.GetComponent<TextMeshProUGUI>();
-        Cuisine = Random.Range(1, 10);
+        Game = GetComponentInParent<Game>();
+        Cuisine = Random.Range(minFood + 1 + 1 * Game.CurrentLevel, maxFood + 1  + 1 * Game.CurrentLevel);
         TextMesh.text = Cuisine.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Player.Eat(Cuisine, gameObject);
+        if(other.TryGetComponent(out Player Player))
+        {
+            Player.Eat(Cuisine, gameObject);
+        }
     }
 }

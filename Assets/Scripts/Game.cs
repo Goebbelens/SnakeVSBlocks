@@ -12,15 +12,18 @@ public class Game : MonoBehaviour
     public Canvas WinMenu;
     public TextMeshProUGUI ScoreOnScreen;
     public TextMeshProUGUI CurrentLevelOnScreen;
-    public TextMeshProUGUI TotalScoreText;
-    public TextMeshProUGUI LevelScoreText;
-    private int CurrentLevel = 1;
+    public TextMeshProUGUI TotalScoreTextDeath;
+    public TextMeshProUGUI LevelScoreTextDeath;
+    public TextMeshProUGUI TotalScoreTextWin;
+    public TextMeshProUGUI LevelScoreTextWin;
+    public AudioSource GameAudioSource;
+    public int CurrentLevel { get; private set; }
     private int score = 0;
     public int levelScore { get; private set; }
-    void Start()
+    void Awake()
     {
         CurrentLevel = SceneManager.GetActiveScene().buildIndex;
-        CurrentLevelOnScreen.text = "Level: " + CurrentLevel.ToString();
+        CurrentLevelOnScreen.text = "Level: " + (CurrentLevel + 1).ToString();
         ScoreOnScreen.text = levelScore.ToString();
         OnStartLevel();
         levelScore = Player.score;
@@ -31,7 +34,7 @@ public class Game : MonoBehaviour
         ScoreOnScreen.text = "Score: " + levelScore.ToString();
         levelScore = Player.score;
         //Debug.Log("Level Score: " + levelScore + "\nScore: " + score);
-        Debug.Log("Current level: " + CurrentLevel);
+        //Debug.Log("Current level: " + CurrentLevel);
     }
 
 
@@ -46,8 +49,8 @@ public class Game : MonoBehaviour
         CameraFollow.enabled = false;
         Debug.Log("YOU WON");
         WinMenu.gameObject.SetActive(true);
-        TotalScoreText.text = TotalScoreText.text + score.ToString();
-        LevelScoreText.text = LevelScoreText.text + levelScore.ToString();
+        TotalScoreTextWin.text = TotalScoreTextWin.text + score.ToString();
+        LevelScoreTextWin.text = LevelScoreTextWin.text + levelScore.ToString();
     }
 
     public void OnDeath()
@@ -55,9 +58,10 @@ public class Game : MonoBehaviour
         score += levelScore;
         Debug.Log("YOU LOSE");
         DeathMenu.gameObject.SetActive(true);
-        TotalScoreText.text = TotalScoreText.text + score.ToString();
-        LevelScoreText.text = LevelScoreText.text + levelScore.ToString();
+        TotalScoreTextDeath.text = TotalScoreTextDeath.text + score.ToString();
+        LevelScoreTextDeath.text = LevelScoreTextDeath.text + levelScore.ToString();
         ScoreOnScreen.gameObject.SetActive(false);
+        GameAudioSource.Play();
     }
 
     public void ReloadLevel()
@@ -71,6 +75,7 @@ public class Game : MonoBehaviour
         {
             CurrentLevel = 0;
             SceneManager.LoadScene(CurrentLevel);
+            return;
         }
         SceneManager.LoadScene(CurrentLevel + 1);
     }

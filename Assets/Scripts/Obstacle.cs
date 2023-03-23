@@ -7,25 +7,27 @@ public class Obstacle : MonoBehaviour
 {
     private int ObstacleHealth;
     private Renderer obstacleRenderer;
+    private Game Game;
     
     public GameObject TextObjectObstacle;
     private TextMeshProUGUI textObstacle;
 
-    public int minObstacleHP = 1;
-    public int maxObstacleHP = 15;
+    public int minObstacleHP;
+    public int maxObstacleHP;
 
     void Start()
     {
+        Game = GetComponentInParent<Game>();
         obstacleRenderer = GetComponent<Renderer>();
-        obstacleRenderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 10.0f);
+        obstacleRenderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 5.0f);
         textObstacle = TextObjectObstacle.GetComponent<TextMeshProUGUI>();
-        ObstacleHealth = Random.Range(minObstacleHP, maxObstacleHP);
+        ObstacleHealth = Random.Range(minObstacleHP + 1 + 1 * Game.CurrentLevel, maxObstacleHP + 1 + 1 * Game.CurrentLevel);
         textObstacle.text = ObstacleHealth.ToString();
     }
 
     private void Update()
     {
-        obstacleRenderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 10.0f);
+        obstacleRenderer.material.SetFloat("_GradientFloat", ObstacleHealth * 1 / 5.0f);
     }
 
     private void OnCollisionEnter(Collision collision)
